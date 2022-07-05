@@ -24,5 +24,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::group(['middleware' => ['web']], function () {
 
     Route::get('/recipes', [App\Http\Controllers\RecipesController::class, 'index']);
+
+    Route::get('/recipes/add', 'App\Http\Controllers\RecipesController@add');
+
+    Route::post('/recipes/add', 'App\Http\Controllers\RecipesController@save');
   
 });

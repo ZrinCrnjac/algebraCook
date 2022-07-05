@@ -11,7 +11,7 @@
         @if (count($recipes)>0)
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <a href="#">Dodaj novi recept</a>
+                    <a href="{{url('recipes/add')}}">Dodaj novi recept</a>
                 </div>
 
                 <div class="panel-body">
