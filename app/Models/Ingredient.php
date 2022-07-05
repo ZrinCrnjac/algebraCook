@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Ingredient extends Model
 {
     use HasFactory;
+
+    /**
+     * @var array
+     */
+    protected $fillable = ['name'];
+
+    public function recipe(){
+        return $this->belongsTo(Recipe::class);
+    }
 }
