@@ -11,15 +11,14 @@
                 <div class="panel-body">
                     @include('common.errors')
 
-                    <form action="{{url('recipes/' . $recipe)}}" method="POST" class="form-horizontal">
+                    <form action="{{url('recipes/edit')}}" method="POST" class="form-horizontal">
                         {{ csrf_field() }}
-
-                        {{ method_field('PATCH') }}
 
                         <div class="form-group">
                             <label for="recipe-name" class="col-sm-3 control-label">Ime</label>
 
                             <div class="col-sm-6">
+                                <input type="hidden" name="id" id="recipe-id" class="form-control" value="{{ $recipe->id }}">
                                 <input type="text" name="name" id="recipe-name" class="form-control" value="{{ old('recipe') ? old('recipe') : $recipe->name }}">
                             </div>
                         </div>

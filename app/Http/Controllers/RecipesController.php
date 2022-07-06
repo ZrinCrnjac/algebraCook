@@ -58,9 +58,29 @@ class RecipesController extends Controller
         return view('recipes.edit')->with('recipe', Recipe::find($id));
     }
 
-    public function update(Request $request, Recipe $recipe){
-        $this->authorize('checkRecipeOwner', $recipe);
-        $task->update($request->all());
-        return redirect('/recipes');
+    public function update(Request $request){
+        $data = $request->all();
+        $recipe = Recipe::find($data['id']);
+
+        if($recipe->creator_id !== auth()->user()->id)
+            return redirect()->action('RecipeController@update');
+
+        foreach($recipe->ingredients as $ingredient)
+            $ingredient->delete();
+
+        $recipe->name = $data['name'];
+        $recipe->description = $data['description'];
+
+        if($recipe->save()){
+            foreach($data['ingredient'] as $key=>$value){
+                $sastojak = new Ingredient;
+                $sastojak->name = $value;
+                $sastojak->recipe_id = $recipe->id;
+                $sastojak->save();
+            }
+        }
+
+        return redirect()->action([RecipesController::class, 'index']);
+        
     }
 }

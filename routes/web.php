@@ -35,6 +35,6 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/recipes/edit/{id}', 'App\Http\Controllers\RecipesController@edit');
 
-    Route::patch('/recipes/{recipe}', 'App\Http\Controllers\RecipesController@update');
+    Route::post('/recipes/edit', 'App\Http\Controllers\RecipesController@update');
   
 });
