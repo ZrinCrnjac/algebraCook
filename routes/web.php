@@ -23,10 +23,18 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::group(['middleware' => ['web']], function () {
 
-    Route::get('/recipes', [App\Http\Controllers\RecipesController::class, 'index']);
+    Route::get('/recipes', 'App\Http\Controllers\RecipesController@index');
 
     Route::get('/recipes/add', 'App\Http\Controllers\RecipesController@add');
 
     Route::post('/recipes/add', 'App\Http\Controllers\RecipesController@save');
+
+    Route::get('/recipes/view/{id}', 'App\Http\Controllers\RecipesController@view');
+
+    Route::get('/recipes/view-with-model/{recipe}', 'App\Http\Controllers\RecipesController@viewWithModel');
+
+    Route::get('/recipes/edit/{id}', 'App\Http\Controllers\RecipesController@edit');
+
+    Route::patch('/recipes/{recipe}', 'App\Http\Controllers\RecipesController@update');
   
 });

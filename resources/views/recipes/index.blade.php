@@ -19,7 +19,7 @@
                         <tbody>
                             @foreach ($recipes as $recipe)
                                 <tr>
-                                    <td class="table-text"><a href="#">{{$recipe->name}}</a></td>
+                                    <td class="table-text"><a href="{{url('recipes/view/' . $recipe->id)}}">{{$recipe->name}}</a></td>
                                 </tr>
                             @endforeach
                         </tbody>

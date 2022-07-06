@@ -29,8 +29,8 @@ class RecipesController extends Controller
 
         $file = $request->file('image');
         $destinationPath = '../public/uploads';
-        $noviRecept->image = $file->getClientOriginalName();
-        $file->move($destinationPath, $file->getClientOriginalName());
+        $noviRecept->image = $noviRecept->name.'_'.$file->getClientOriginalName();
+        $file->move($destinationPath, $noviRecept->name.'_'.$file->getClientOriginalName());
 
         if($noviRecept->save()){
             foreach($data['ingredient'] as $key => $value){
@@ -42,5 +42,25 @@ class RecipesController extends Controller
         }
 
         return redirect()->action([RecipesController::class, 'index']);
+    }
+
+    public function view($id){
+        return view('recipes.view')->with('recipe', Recipe::find($id));
+    }
+
+    public function viewWithModel(Recipe $recipe){
+        return view('recipes.view', [
+            'recipe' => $recipe,
+        ]);
+    }
+
+    public function edit($id){
+        return view('recipes.edit')->with('recipe', Recipe::find($id));
+    }
+
+    public function update(Request $request, Recipe $recipe){
+        $this->authorize('checkRecipeOwner', $recipe);
+        $task->update($request->all());
+        return redirect('/recipes');
     }
 }
