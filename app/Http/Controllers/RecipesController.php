@@ -14,6 +14,7 @@ class RecipesController extends Controller
 
     public function index(Request $request){
         return view('recipes.index')->with('recipes', Recipe::get());
+        //return view('recipes.index')->with('recipes', auth()->user()->recipes);
     }
 
     public function add(Request $request){
@@ -82,5 +83,36 @@ class RecipesController extends Controller
 
         return redirect()->action([RecipesController::class, 'index']);
         
+    }
+
+    public function updateWithModel(Request $request, Recipe $recipe){
+
+        if($recipe->creator_id !== auth()->user()->id)
+            return redirect()->action('RecipeController@update');
+
+        foreach($recipe->ingredients as $ingredient)
+            $ingredient->delete();
+
+        $recipe->name = $request->name;
+        $recipe->description = $request->description;
+
+        if($recipe->save()){
+            foreach($recipe['ingredient'] as $key=>$value){
+                $sastojak = new Ingredient;
+                $sastojak->name = $value;
+                $sastojak->recipe_id = $recipe_id;
+                $sastojak->save();
+            }
+        }
+
+        return redirect()->action([RecipesController::class, 'index']);
+    }
+
+    public function destroy(Request $request, Recipe $recipe){
+        $this->authorize('destroy', $recipe);
+
+        $recipe->delete();
+
+        return redirect('/recipes');
     }
 }

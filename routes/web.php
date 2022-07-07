@@ -36,5 +36,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/recipes/edit/{id}', 'App\Http\Controllers\RecipesController@edit');
 
     Route::post('/recipes/edit', 'App\Http\Controllers\RecipesController@update');
+
+    Route::post('/recipes/edit/{recipe}', 'App\Http\Controllers\RecipesController@updateWithModel');
+
+    Route::delete('/recipes/{recipe}', 'App\Http\Controllers\RecipesController@destroy');
   
 });

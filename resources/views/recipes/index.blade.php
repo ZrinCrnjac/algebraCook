@@ -20,6 +20,18 @@
                             @foreach ($recipes as $recipe)
                                 <tr>
                                     <td class="table-text"><a href="{{url('recipes/view/' . $recipe->id)}}">{{$recipe->name}}</a></td>
+                                    <td>
+                                        @if ($recipe->creator_id === auth()->user()->id)
+                                        <form action="{{url('recipes/' . $recipe->id)}}" method="POST">
+                                            {{csrf_field()}}
+                                            {{ method_field('DELETE')}}
+
+                                            <button type="submit" id="delete-recipe-{{ $recipe->id }}" class="btn btn-danger">
+                                                <i class="fa fa-btn fa-trash"></i>Obriši
+                                            </button>
+                                        </form>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

@@ -19,4 +19,8 @@ class RecipePolicy
     public function checkRecipeOwner(User $user, Recipe $recipe){
         return $user->id === $recipe->creator_id;
     }
+
+    public function destroy(User $user, Recipe $recipe){
+        return $user->id === $recipe->creator_id;
+    }
 }
