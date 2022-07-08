@@ -12,8 +12,9 @@
                         <h3>Uredi zaporku:</h3>
                         <form action="{{url('profil')}}" method="POST" class="form-horizontal">
                             {{ csrf_field() }}
+
                             <div class="form-group">
-                                <label for="password" class="col-sm-3 control-label">Zaporka</label>
+                                <label for="password" class="col-sm-3 control-label">Nova zaporka</label>
                                 <div class="col-sm-6">
                                     <input type="password" name="password" id="password" class="form-control">
                                 </div>
